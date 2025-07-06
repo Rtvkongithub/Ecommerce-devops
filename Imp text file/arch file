@@ -1,0 +1,50 @@
+🗺 Architecture Overview
+1️⃣ Microservices App
+Frontend
+
+Products service
+
+Orders service
+
+User service
+
+Each containerized with Docker and deployed on local Kubernetes.
+
+2️⃣ Local Infrastructure
+Kubernetes Cluster: Minikube or Kind running locally.
+
+Database: Local Postgres (via Docker Compose).
+
+Object Storage: MinIO container as S3 alternative.
+
+Ingress & Routing: Local NGINX ingress controller + /etc/hosts.
+
+3️⃣ CI/CD Pipeline
+GitHub Actions or GitLab CI (free tier).
+
+On push:
+
+Build Docker images.
+
+Run unit and integration tests.
+
+Push images to local Docker registry or GitHub Container Registry.
+
+Deploy to local Kubernetes using Helm charts.
+
+4️⃣ Monitoring & Alerting
+Prometheus: metrics collection (pod CPU, memory, app response times).
+
+Grafana: custom dashboards.
+
+Loki: logs aggregation and search.
+
+Slack Free Workspace: instant alert notifications via Alertmanager.
+
+5️⃣ Auto-remediation
+Kubernetes self-healing: automatic pod restarts via health probes.
+
+Horizontal Pod Autoscaler (HPA) to auto-scale pods based on CPU/memory.
+
+Optional custom scripts or operators for advanced auto-repair logic.
+

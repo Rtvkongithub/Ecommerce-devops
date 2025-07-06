@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grocery Store 🥦</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { margin-bottom: 20px; }
+        .product { border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; width: 150px; }
+        .product img { width: 100%; height: 100px; object-fit: cover; }
+    </style>
+</head>
+<body>
+    <h1>My Grocery Store 🥦</h1>
+    <form method="post">
+        <input type="text" name="name" placeholder="Product name" required><br>
+        <input type="text" name="price" placeholder="Price" required><br>
+        <input type="text" name="image" placeholder="Image URL" required><br>
+        <button type="submit">Add Product</button>
+    </form>
+    <h2>Available Products</h2>
+    {% for p in products %}
+        <div class="product">
+            <img src="{{ p.image }}" alt="{{ p.name }}">
+            <h4>{{ p.name }}</h4>
+            <p>₹{{ p.price }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,12 @@
+        ┌─────────────────────────────┐
+        │       Your Laptop           │
+        │ ──────────────────────────  │
+        │  Docker Compose             │
+        │    └─ Postgres DB           │
+        │                             │
+        │  Minikube Cluster           │
+        │    └─ Products App Pod      │
+        │                             │
+        │  Browser → App via NodePort │
+        └─────────────────────────────┘
+

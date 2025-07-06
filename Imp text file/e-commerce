@@ -1,0 +1,98 @@
+build an interactive website using flask(Python) Added product images, descriptions, ability to "store" data 
+products service-> app.py
+from flask import Flask, request, render_template, redirect
+
+app = Flask(__name__)
+
+# In-memory storage
+products = []
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        name = request.form["name"]
+        price = request.form["price"]
+        image = request.form["image"]
+        products.append({"name": name, "price": price, "image": image})
+        return redirect("/")
+    return render_template("index.html", products=products)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+
+Dockerfile
+ GNU nano 6.2                       Dockerfile                                 
+FROM python:3.10-slim
+WORKDIR /app
+COPY . .
+RUN pip install flask
+CMD ["python", "app.py"]
+
+templates->index.html
+!DOCTYPE html>
+<html>
+<head>
+    <title>Grocery Store 🥦</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { margin-bottom: 20px; }
+        .product { border: 1px solid #ccc; padding: 10px; margin: 10px; display>
+        .product img { width: 100%; height: 100px; object-fit: cover; }
+    </style>
+</head>
+<body>
+    <h1>My Grocery Store 🥦</h1>
+    <form method="post">
+        <input type="text" name="name" placeholder="Product name" required><br>
+        <input type="text" name="price" placeholder="Price" required><br>
+        <input type="text" name="image" placeholder="Image URL" required><br>
+        <button type="submit">Add Product</button>
+    </form>
+    <h2>Available Products</h2>
+    {% for p in products %}
+        <div class="product">
+            <img src="{{ p.image }}" alt="{{ p.name }}">
+            <h4>{{ p.name }}</h4>
+            <p>₹{{ p.price }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
+
+2️⃣ Containerized it using Docker
+Wrote a Dockerfile ✅
+
+Built the image ✅
+
+Ran it locally ✅
+
+3️⃣ Used Docker Compose to orchestrate locally
+Created a docker-compose.yml file ✅
+
+Defined service and exposed ports ✅
+
+Successfully started and accessed locally ✅
+
+NOW deploying to minikube
+⚡ Step 2: Set Docker env to build image inside Minikube
+eval $(minikube docker-env)(docker build cheyumbo will run in docker daemon , k8 kaanan patila images from your localmachine docker)
+
+added postgres to store data
+updated docker and app.py
+rubuild and deployed
+issue was there then psycopg2-binary rebuilted it
+removed old one 
+http://192.168.49.2:5000
+
+"We can easily integrate Postgres or any other DB container, and manage it via Kubernetes secrets or Helm charts when needed."
+💡 Next recommended step (Step 2): Local Infrastructure enhancements
+🔥 Ingress & Routing setup
+1️⃣ Install NGINX ingress controller in Minikube → to expose your app cleanly.
+2️⃣ Update your /etc/hosts → to access your service via a nice domain (e.g., products.local).
+3️⃣ Define ingress YAML → route requests to your products service.
+
+🌟 Why Ingress now?
+Interviewers love seeing you can handle routing and external access to microservices in k8s.
+
+Proves you know Service, Ingress, and DNS concepts.3

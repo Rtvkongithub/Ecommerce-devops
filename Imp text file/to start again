@@ -1,0 +1,54 @@
+✅ When you turn ON your laptop again:
+1️⃣ Start Minikube
+bash
+Copy
+Edit
+minikube start
+This will start your local Kubernetes cluster again.
+
+2️⃣ Set Docker environment (if you want to build images inside Minikube)
+bash
+Copy
+Edit
+eval $(minikube docker-env)
+But only if you plan to rebuild images inside Minikube. If not, you can skip this.
+
+3️⃣ Check if all pods are running
+bash
+Copy
+Edit
+kubectl get pods -A
+Check your services and deployments. If they are Running, you are good.
+
+4️⃣ Check ingress
+bash
+Copy
+Edit
+kubectl get pods -n kube-system
+Make sure ingress-nginx-controller is running.
+
+⚙️ Optional: Restart local Docker containers
+If you used local Docker (e.g., Postgres running in Docker):
+
+bash
+Copy
+Edit
+docker start postgres-db
+Or list and start:
+
+bash
+Copy
+Edit
+docker ps -a
+docker start <container_name>
+💬 After these steps, your app and Kubernetes should be ready as before. Just continue from wherever you left off! 🚀
+
+
+
+
+
+
+
+
+Ask ChatGPT
+
